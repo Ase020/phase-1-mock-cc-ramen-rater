@@ -23,4 +23,26 @@ document.addEventListener("DOMContentLoaded", () => {
             });
          });
       });
+
+   const newRamenForm = document.getElementById("new-ramen");
+   newRamenForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const ramenObj = {
+         name: e.target.new_name.value,
+         restaurant: e.target.new_restaurant.value,
+         image: e.target.new_image.value,
+         rating: e.target.new_rating.value,
+         comment: e.target.new_comment.value,
+      };
+      fetch("http://localhost:3000/ramens", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+         },
+         body: JSON.stringify(ramenObj),
+      })
+         .then((res) => res.json())
+         .then((res) => console.log(res));
+   });
 });
